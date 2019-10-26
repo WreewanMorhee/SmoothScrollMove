@@ -39,6 +39,7 @@
     "react-scripts": "3.0.1",
     "react-slick": "^0.24.0",
     "react-youtube": "^7.9.0",
+    "recompose": "^0.30.0",
     "sass": "^1.22.1",
     "sass-loader": "^7.1.0",
     "slick-carousel": "^1.8.1",

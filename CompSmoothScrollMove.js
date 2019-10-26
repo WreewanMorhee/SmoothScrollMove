@@ -47,15 +47,16 @@ import React, {
   useEffect,
   forwardRef
 } from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM, { RawHTML } from 'react-dom'
 import detectScrollY from './DetectScrollYVer2/DetectScrollY'
 import { useWindowSize } from './WindowSizeContext'
-import { init as initCompScrollMove } from './DetectScrollYVer2/DetectScrollYForComp'
+import { init as initCompScrollMove } from './DetectScrollYForComp'
 
 export const init = () => {
+  console.warn('initCompScrollMoveinitCompScrollMoveinitCompScrollMoveinitCompScrollMoveinitCompScrollMove')
+  initCompScrollMove()
+
   const target = document.getElementById('smooth-scroll-move')
   const html = target.innerHTML
   ReactDOM.render(<ScrollToMove html={html} />, target)
-
-  initCompScrollMove()
 }
