@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react"
 import { TweenMax } from 'gsap'
 
-const detectScrollY = WrappedComponent => {
-  const DetectScrollY = props => {
-    const [scroll_y, set_scroll_y] = useState(window.scrollY)
+const detectCompScrollY = WrappedComponent => {
+  const DetectScrollY = ({scroll_y, ...props}) => {
+    // const [scroll_y, set_scroll_y] = useState(scroll_y)
     const [position_y, set_position_y] = useState(0)
     const [is_show, set_is_show] = useState(false)
     const [is_all_show, set_is_all_show] = useState(false)
@@ -14,7 +14,7 @@ const detectScrollY = WrappedComponent => {
     const WraperRef = useRef(null)
 
     const handle_scroll = () => {
-      set_scroll_y(window.scrollY)
+      // set_scroll_y(scroll_y)
       set_position_y(get_position(WraperRef.current))
       handle_is_show()
       handle_is_all_show()
@@ -39,21 +39,21 @@ const detectScrollY = WrappedComponent => {
       if (!WraperRef.current) return
 
       if (
-        window.scrollY + window.innerHeight >=
+        scroll_y + window.innerHeight >=
           get_position(WraperRef.current) &&
         !is_show
       ) {
         set_is_show(true)
       } else if (
-        window.scrollY + window.innerHeight < get_position(WraperRef.current) &&
+        scroll_y + window.innerHeight < get_position(WraperRef.current) &&
         is_show
       ) {
         set_is_show(false)
       }
 
       set_y_from_show(
-        window.scrollY + window.innerHeight - get_position(WraperRef.current) > 0 ?
-        window.scrollY + window.innerHeight - get_position(WraperRef.current) :
+        scroll_y + window.innerHeight - get_position(WraperRef.current) > 0 ?
+        scroll_y + window.innerHeight - get_position(WraperRef.current) :
         0
       )
     }
@@ -61,15 +61,15 @@ const detectScrollY = WrappedComponent => {
     const handle_is_all_show = () => {
       if (!WraperRef.current) return
 
-      if (window.scrollY + window.innerHeight - WraperRef.current.clientHeight >= get_position(WraperRef.current) && !is_all_show) {
+      if (scroll_y + window.innerHeight - WraperRef.current.clientHeight >= get_position(WraperRef.current) && !is_all_show) {
         set_is_all_show(true)
-      } else if (window.scrollY + window.innerHeight - WraperRef.current.clientHeight < get_position(WraperRef.current) && is_all_show) {
+      } else if (scroll_y + window.innerHeight - WraperRef.current.clientHeight < get_position(WraperRef.current) && is_all_show) {
         set_is_all_show(false)
       }
 
       set_y_from_all_show(
-        window.scrollY + window.innerHeight - WraperRef.current.clientHeight - get_position(WraperRef.current) > 0 ?
-        window.scrollY + window.innerHeight - WraperRef.current.clientHeight - get_position(WraperRef.current) :
+        scroll_y + window.innerHeight - WraperRef.current.clientHeight - get_position(WraperRef.current) > 0 ?
+        scroll_y + window.innerHeight - WraperRef.current.clientHeight - get_position(WraperRef.current) :
         0
       )
     }
@@ -78,30 +78,27 @@ const detectScrollY = WrappedComponent => {
       if (!WraperRef.current) return
 
       if (
-        window.scrollY >= get_position(WraperRef.current) &&
+        scroll_y >= get_position(WraperRef.current) &&
         !is_vanish
       ) {
         set_is_vanish(true)
       } else if (
-        window.scrollY < get_position(WraperRef.current) &&
+        scroll_y < get_position(WraperRef.current) &&
         is_vanish
       ) {
         set_is_vanish(false)
       }
 
       set_y_from_vanish(
-        window.scrollY - get_position(WraperRef.current) > 0 ?
-        window.scrollY - get_position(WraperRef.current) :
+        scroll_y - get_position(WraperRef.current) > 0 ?
+        scroll_y - get_position(WraperRef.current) :
         0
       )
     }
 
     useEffect(() => {
       handle_scroll()
-
-      window.addEventListener("scroll", handle_scroll)
-      return () => window.removeEventListener("scroll", handle_scroll)
-    }, [])
+    }, [scroll_y])
 
     return (
       <WrappedComponent
@@ -145,4 +142,4 @@ const debounce = (func, delay = 50) => {
     }
 }
 
-export default detectScrollY
+export default detectCompScrollY

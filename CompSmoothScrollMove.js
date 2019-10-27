@@ -53,7 +53,6 @@ import { useWindowSize } from './WindowSizeContext'
 import { init as initCompScrollMove } from './DetectScrollYForComp'
 
 export const init = () => {
-  console.warn('initCompScrollMoveinitCompScrollMoveinitCompScrollMoveinitCompScrollMoveinitCompScrollMove')
   initCompScrollMove()
 
   const target = document.getElementById('smooth-scroll-move')
