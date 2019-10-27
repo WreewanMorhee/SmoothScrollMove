@@ -1,69 +1,65 @@
 class CompScrollToMove extends React.Component {
   componentDidMount() {
-    const { handle_scroll, target_DOM } = this.props
-    handle_scroll()
-    // window.addEventListener("scroll", handle_scroll)
-
-    // const transition_style =  window.getComputedStyle(target_DOM, null).getPropertyValue('transition')
-    // const is_mobile = window.innerWidth <= 1024
-
-    // target_DOM.style.transition = `${transition_style}, transform .${is_mobile ? 0 : 7}s ease-out`
+    this.props.handle_scroll()
   }
 
   componentDidUpdate(prevProps) {
-    const { target_DOM, y_from_show, scroll_y, handle_scroll } = this.props
+    const { target_DOM, y_from_show, scroll_y, handle_scroll, full_page } = this.props
     // if (!target_DOM.dataset.smc) return
 
     if (prevProps.scroll_y !== this.props.scroll_y) {
       handle_scroll()
     }
 
-    console.warn(y_from_show, 'componentDidUpdate')
-   //  let transform_str = ''
-   // target_DOM.dataset.smc.split('/').forEach((move_data) => {
-   //   const [style_name, times] = move_data.split('_')
-   //
-   //   transform_str = `${transform_str} ${style_name}(${-y_from_show / (10 + Number(times))}px)`
-   // })
-   //
-   //  target_DOM.style.transform = transform_str
+    let transform_data = {}
+    const param_arr = ['x', 'y', 'rotationX', 'rotationY', 'rotationZ', 'bgpos']
+    param_arr.forEach((name) => {
+      const data_str = `smc${name.replace(name[0], name[0].toUpperCase())}`
+      if (!target_DOM.dataset[data_str]) return
+
+      if (name === 'bgpos') {
+        const [bg_x, bg_y] = target_DOM.dataset[data_str].split(' ')
+        transform_data['backgroundPosition'] = `${generate_bg_pos(bg_x, y_from_show)} ${generate_bg_pos(bg_y, y_from_show)}`
+      } else {
+        transform_data[name] = Number(target_DOM.dataset[data_str]) * (-1) * y_from_show
+      }
+
+    })
 
     const is_mobile = window.innerWidth <= 1024
-    const transition_time = is_mobile ? 0 : 0.7
+    const transition_time = (is_mobile || !full_page) ? 0 : 0.7
+
     TweenMax.to(target_DOM, transition_time, {
-      y: -y_from_show / 10,
-      rotationZ: -y_from_show / 10,
+      ...transform_data
     })
   }
 
-  // componentWillMount() {
-  //   window.removeEventListener("scroll", this.props.handle_scroll)
-  // }
   render () {
     return null
   }
 }
 
+const generate_bg_pos = (value, y_from_show) => (
+  Number(value) === 0 ? `50%` : `${Number(value) * (-1) * y_from_show}px`
+)
 
-// const stateBox1 = withState('scroll_y', 'set_scroll_y', scroll_y)
-const stateBox2 = withState('position_y', 'set_position_y', 0)
-const stateBox3 = withState('is_show', 'set_is_show', false)
-const stateBox4 = withState('is_all_show', 'set_is_all_show', false)
-const stateBox5 = withState('is_vanish', 'set_is_vanish', false)
-const stateBox6 = withState('y_from_all_show', 'set_y_from_all_show', 0)
-const stateBox7 = withState('y_from_show', 'set_y_from_show', 0)
-const stateBox8 = withState('y_from_vanish', 'set_y_from_vanish', 0)
+
+const stateBox1 = withState('position_y', 'set_position_y', 0)
+const stateBox2 = withState('is_show', 'set_is_show', false)
+const stateBox3 = withState('is_all_show', 'set_is_all_show', false)
+const stateBox4 = withState('is_vanish', 'set_is_vanish', false)
+const stateBox5 = withState('y_from_all_show', 'set_y_from_all_show', 0)
+const stateBox6 = withState('y_from_show', 'set_y_from_show', 0)
+const stateBox7 = withState('y_from_vanish', 'set_y_from_vanish', 0)
 
 const logicBox1 = withHandlers({
   handle_scroll: ({
-    // set_scroll_y,
     set_position_y,
     handle_is_show,
     handle_is_all_show,
     handle_is_vanish,
     target_DOM
   }) => () => {
-    // set_scroll_y(scroll_y)
     set_position_y(get_position(target_DOM))
     handle_is_show()
     handle_is_all_show()
@@ -150,14 +146,13 @@ const get_position = element => {
 }
 
 const CompScrollToMoveConnectorBase = compose(
-  // stateBox1,
+  stateBox1,
   stateBox2,
   stateBox3,
   stateBox4,
   stateBox5,
   stateBox6,
   stateBox7,
-  stateBox8,
   logicBox2,
   logicBox1
 )(CompScrollToMove)
@@ -176,22 +171,3 @@ import { compose, withHandlers, withState } from 'recompose'
 import { TweenMax } from 'gsap'
 import { WindowScrollYContext } from './DetectScrollY/DetectWindowScrollY'
 export default CompScrollToMoveConnector
-
-// export const init = () => {
-//   const container = document.createElement("DIV");
-//   container.id = "comp-scroll-move";
-//   document.body.appendChild(container);
-//
-//   const comp_list = Array.from(
-//     document.getElementsByClassName("smc")
-//   );
-//
-//   ReactDOM.render(
-//     <>
-//       {comp_list.map(comp => (
-//         <DetectScrollYConnector target_DOM={comp} />
-//       ))}
-//     </>,
-//     document.getElementById("comp-scroll-move")
-//   );
-// };

@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/weekend09
+/macao11
 /.pnp
 .pnp.js
 

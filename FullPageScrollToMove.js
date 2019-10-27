@@ -18,7 +18,7 @@ const FullPageScrollToMove = ({ turn_on = true, html }) => {
       <>
         <div dangerouslySetInnerHTML={{ __html: html }} />
         {can_render_comp && comp_list.map((comp, index) => (
-          <CompScrollToMoveConnector key={`key-${index + 1}`} target_DOM={comp} />
+          <CompScrollToMoveConnector full_page={turn_on} key={`key-${index + 1}`} target_DOM={comp} />
         ))}
       </>
     )
@@ -27,7 +27,6 @@ const FullPageScrollToMove = ({ turn_on = true, html }) => {
   const comp_list = Array.from(
     document.getElementsByClassName("smc")
   )
-
   return (
     <>
     <div
@@ -38,7 +37,7 @@ const FullPageScrollToMove = ({ turn_on = true, html }) => {
       dangerouslySetInnerHTML={{ __html: html }}
     />
     {can_render_comp && comp_list.map((comp, index) => (
-      <CompScrollToMoveConnector key={`key-${index + 1}`} target_DOM={comp} />
+      <CompScrollToMoveConnector full_page={turn_on} key={`key-${index + 1}`} target_DOM={comp} />
     ))}
     </>
   )
@@ -79,17 +78,7 @@ import React, {
   useState
 } from 'react'
 import ReactDOM from 'react-dom'
-// import detectScrollY from './DetectScrollYVer2/DetectScrollY'
 import { useWindowSize } from './WindowSizeContext'
 import { WindowScrollYContext } from './DetectScrollY/DetectWindowScrollY'
 import CompScrollToMoveConnector from './CompScrollToMove'
-// import { init as initCompScrollMove } from './DetectScrollYVer2/DetectScrollYForComp'
 export default FullPageScrollToMove
-
-// export const init = () => {
-//   const target = document.getElementById('smooth-scroll-move')
-//   const html = target.innerHTML
-//   ReactDOM.render(<ScrollToMove html={html} />, target)
-//
-//   initCompScrollMove()
-// }
