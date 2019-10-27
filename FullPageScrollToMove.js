@@ -78,7 +78,6 @@ import React, {
   useState
 } from 'react'
 import ReactDOM from 'react-dom'
-import { useWindowSize } from './WindowSizeContext'
 import { WindowScrollYContext } from './DetectScrollY/DetectWindowScrollY'
 import CompScrollToMoveConnector from './CompScrollToMove'
 export default FullPageScrollToMove
