@@ -4,29 +4,36 @@ class CompScrollToMove extends React.Component {
     handle_scroll()
     // window.addEventListener("scroll", handle_scroll)
 
-    const transition_style =  window.getComputedStyle(target_DOM, null).getPropertyValue('transition')
-    const is_mobile = window.innerWidth <= 1024
+    // const transition_style =  window.getComputedStyle(target_DOM, null).getPropertyValue('transition')
+    // const is_mobile = window.innerWidth <= 1024
 
-    target_DOM.style.transition = `${transition_style}, transform .${is_mobile ? 0 : 7}s ease-out`
+    // target_DOM.style.transition = `${transition_style}, transform .${is_mobile ? 0 : 7}s ease-out`
   }
 
   componentDidUpdate(prevProps) {
     const { target_DOM, y_from_show, scroll_y, handle_scroll } = this.props
-    if (!target_DOM.dataset.smc) return
+    // if (!target_DOM.dataset.smc) return
 
     if (prevProps.scroll_y !== this.props.scroll_y) {
       handle_scroll()
     }
 
     console.warn(y_from_show, 'componentDidUpdate')
-    let transform_str = ''
-   target_DOM.dataset.smc.split('/').forEach((move_data) => {
-     const [style_name, times] = move_data.split('_')
+   //  let transform_str = ''
+   // target_DOM.dataset.smc.split('/').forEach((move_data) => {
+   //   const [style_name, times] = move_data.split('_')
+   //
+   //   transform_str = `${transform_str} ${style_name}(${-y_from_show / (10 + Number(times))}px)`
+   // })
+   //
+   //  target_DOM.style.transform = transform_str
 
-     transform_str = `${transform_str} ${style_name}(${-y_from_show / (10 + Number(times))}px)`
-   })
-
-    target_DOM.style.transform = transform_str
+    const is_mobile = window.innerWidth <= 1024
+    const transition_time = is_mobile ? 0 : 0.7
+    TweenMax.to(target_DOM, transition_time, {
+      y: -y_from_show / 10,
+      rotationZ: -y_from_show / 10,
+    })
   }
 
   // componentWillMount() {
@@ -166,6 +173,7 @@ const CompScrollToMoveConnector = props => {
 import React, { useContext } from "react"
 import ReactDOM from 'react-dom'
 import { compose, withHandlers, withState } from 'recompose'
+import { TweenMax } from 'gsap'
 import { WindowScrollYContext } from './DetectScrollY/DetectWindowScrollY'
 export default CompScrollToMoveConnector
 
