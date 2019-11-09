@@ -6,6 +6,7 @@ const FullPageScrollToMove = ({ turn_on = true, html }) => {
   useEffect(() => {
     initial_moving_board(BoxRef)
     add_func_to_img(BoxRef)
+    add_func_to_interactive_comp(BoxRef)
     set_can_render_comp(true)
   }, [])
 
@@ -62,6 +63,24 @@ const add_func_to_img = BoxRef => {
 
   img_list.forEach((img) => {
     img.addEventListener('load', set_MB_height_to_body(BoxRef))
+  })
+}
+
+const add_func_to_interactive_comp = BoxRef => {
+  if (!BoxRef.current) return
+
+  const mb_comp_list = Array.from(document.getElementsByClassName('mb-comp'))
+
+  mb_comp_list.forEach((mb_comp) => {
+    const type = mb_comp.dataset.eventType
+    const delay = mb_comp.dataset.delay
+    mb_comp.addEventListener(type, () => {
+      if (delay) {
+        setTimeout(set_MB_height_to_body(BoxRef), Number(delay))
+      } else {
+        set_MB_height_to_body(BoxRef)()
+      }
+    })
   })
 }
 
