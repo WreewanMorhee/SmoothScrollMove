@@ -12,18 +12,12 @@ class CompScrollToMove extends React.Component {
     }
 
     let transform_data = {}
-    const param_arr = ['x', 'y', 'rotationX', 'rotationY', 'rotationZ', 'bgpos']
+    const param_arr = ['x', 'y', 'rotationX', 'rotationY', 'rotationZ', 'skewX', 'skewY', 'skewZ']
     param_arr.forEach((name) => {
       const data_str = `smc${name.replace(name[0], name[0].toUpperCase())}`
       if (!target_DOM.dataset[data_str]) return
 
-      if (name === 'bgpos') {
-        const [bg_x, bg_y] = target_DOM.dataset[data_str].split(' ')
-        transform_data['backgroundPosition'] = `${generate_bg_pos(bg_x, y_from_show)} ${generate_bg_pos(bg_y, y_from_show)}`
-      } else {
-        transform_data[name] = Number(target_DOM.dataset[data_str]) * (-1) * y_from_show
-      }
-
+      transform_data[name] = Number(target_DOM.dataset[data_str]) * (-1) * y_from_show
     })
 
     const is_mobile = window.innerWidth <= 1024
@@ -38,11 +32,6 @@ class CompScrollToMove extends React.Component {
     return null
   }
 }
-
-const generate_bg_pos = (value, y_from_show) => (
-  Number(value) === 0 ? `50%` : `${Number(value) * (-1) * y_from_show}px`
-)
-
 
 const stateBox1 = withState('position_y', 'set_position_y', 0)
 const stateBox2 = withState('is_show', 'set_is_show', false)
