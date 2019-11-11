@@ -4,28 +4,13 @@ class CompScrollToMove extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { target_DOM, y_from_show, scroll_y, handle_scroll, full_page } = this.props
-    // if (!target_DOM.dataset.smc) return
+    const { scroll_y, handle_scroll, move_smc } = this.props
 
-    if (prevProps.scroll_y !== this.props.scroll_y) {
+    if (prevProps.scroll_y !== scroll_y) {
       handle_scroll()
     }
 
-    let transform_data = {}
-    const param_arr = ['x', 'y', 'rotationX', 'rotationY', 'rotationZ', 'skewX', 'skewY', 'skewZ']
-    param_arr.forEach((name) => {
-      const data_str = `smc${name.replace(name[0], name[0].toUpperCase())}`
-      if (!target_DOM.dataset[data_str]) return
-
-      transform_data[name] = Number(target_DOM.dataset[data_str]) * (-1) * y_from_show
-    })
-
-    const is_mobile = window.innerWidth <= 1024
-    const transition_time = (is_mobile || !full_page) ? 0 : 0.7
-
-    TweenMax.to(target_DOM, transition_time, {
-      ...transform_data
-    })
+    move_smc()
   }
 
   render () {
@@ -53,6 +38,23 @@ const logicBox1 = withHandlers({
     handle_is_show()
     handle_is_all_show()
     handle_is_vanish()
+  },
+  move_smc: ({target_DOM, full_page, y_from_show}) => () => {
+    let transform_data = {}
+    const param_arr = ['x', 'y', 'rotationX', 'rotationY', 'rotationZ', 'skewX', 'skewY']
+    param_arr.forEach((name) => {
+      const data_str = `smc${name.replace(name[0], name[0].toUpperCase())}`
+      if (!target_DOM.dataset[data_str]) return
+
+      transform_data[name] = Number(target_DOM.dataset[data_str]) * (-1) * y_from_show
+    })
+
+    const is_mobile = window.innerWidth <= 1024
+    const transition_time = (is_mobile || !full_page) ? 0 : 0.7
+
+    TweenMax.to(target_DOM, transition_time, {
+      ...transform_data
+    })
   }
 })
 
