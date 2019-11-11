@@ -33,7 +33,7 @@ const logicBox1 = withHandlers({
   },
   move_smc: ({target_DOM, full_page, y_from_show}) => () => {
     let transform_data = {}
-    const param_arr = ['x', 'y', 'rotationX', 'rotationY', 'rotationZ', 'skewX', 'skewY']
+    const param_arr = ['x', 'y', 'z', 'rotationX', 'rotationY', 'rotationZ', 'skewX', 'skewY']
     param_arr.forEach((name) => {
       const data_str = `smc${name.replace(name[0], name[0].toUpperCase())}`
       if (!target_DOM.dataset[data_str]) return
