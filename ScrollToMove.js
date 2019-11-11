@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom'
 import detectWindowScrollY, { WindowScrollYProvider } from './DetectScrollY/DetectWindowScrollY'
 import FullPageScrollToMove from './FullPageScrollToMove'
 
-export const init = ({full_page = true}) => {
+export const init = ({full_page = true} = {}) => {
   const target = document.getElementById('smooth-scroll-move')
   const html = target ? target.innerHTML : ''
 
