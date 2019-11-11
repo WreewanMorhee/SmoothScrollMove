@@ -20,24 +20,16 @@ class CompScrollToMove extends React.Component {
 
 const stateBox1 = withState('position_y', 'set_position_y', 0)
 const stateBox2 = withState('is_show', 'set_is_show', false)
-const stateBox3 = withState('is_all_show', 'set_is_all_show', false)
-const stateBox4 = withState('is_vanish', 'set_is_vanish', false)
-const stateBox5 = withState('y_from_all_show', 'set_y_from_all_show', 0)
-const stateBox6 = withState('y_from_show', 'set_y_from_show', 0)
-const stateBox7 = withState('y_from_vanish', 'set_y_from_vanish', 0)
+const stateBox3 = withState('y_from_show', 'set_y_from_show', 0)
 
 const logicBox1 = withHandlers({
   handle_scroll: ({
     set_position_y,
     handle_is_show,
-    handle_is_all_show,
-    handle_is_vanish,
     target_DOM
   }) => () => {
     set_position_y(get_position(target_DOM))
     handle_is_show()
-    handle_is_all_show()
-    handle_is_vanish()
   },
   move_smc: ({target_DOM, full_page, y_from_show}) => () => {
     let transform_data = {}
@@ -82,42 +74,6 @@ const logicBox2 = withHandlers({
       0
     )
   },
-  handle_is_all_show: ({target_DOM, set_is_all_show, set_y_from_all_show, is_all_show, scroll_y}) => () => {
-    if (!target_DOM) return
-
-    if (scroll_y + window.innerHeight - target_DOM.clientHeight >= get_position(target_DOM) && !is_all_show) {
-      set_is_all_show(true)
-    } else if (scroll_y + window.innerHeight - target_DOM.clientHeight < get_position(target_DOM) && is_all_show) {
-      set_is_all_show(false)
-    }
-
-    set_y_from_all_show(
-      scroll_y + window.innerHeight - target_DOM.clientHeight - get_position(target_DOM) > 0 ?
-      scroll_y + window.innerHeight - target_DOM.clientHeight - get_position(target_DOM) :
-      0
-    )
-  },
-  handle_is_vanish: ({target_DOM, set_is_vanish, set_y_from_vanish, is_vanish, scroll_y}) => () => {
-    if (!target_DOM) return
-
-    if (
-      scroll_y >= get_position(target_DOM) &&
-      !is_vanish
-    ) {
-      set_is_vanish(true)
-    } else if (
-      scroll_y < get_position(target_DOM) &&
-      is_vanish
-    ) {
-      set_is_vanish(false)
-    }
-
-    set_y_from_vanish(
-      scroll_y - get_position(target_DOM) > 0 ?
-      scroll_y - get_position(target_DOM) :
-      0
-    )
-  }
 })
 
 
@@ -140,10 +96,6 @@ const CompScrollToMoveConnectorBase = compose(
   stateBox1,
   stateBox2,
   stateBox3,
-  stateBox4,
-  stateBox5,
-  stateBox6,
-  stateBox7,
   logicBox2,
   logicBox1
 )(CompScrollToMove)
