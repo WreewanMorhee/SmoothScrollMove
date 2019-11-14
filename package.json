@@ -1,55 +1,31 @@
 {
-  "name": "taipei-fashion-week",
-  "version": "0.1.0",
-  "private": true,
+  "name": "smooth-scroll-move",
+  "version": "1.0.0",
+  "main": "./js_lib/SmoothScrollMove.js",
+  "description": "make your web scroll smoothly to enhance user experience",
   "scripts": {
-    "build": "webpack -p",
-    "test": "webpack --mode=development",
-    "start": "webpack --mode=development --watch",
-    "eject": "react-scripts eject"
+      "start": "webpack --watch --config webpack.dev.js",
+      "dev": "webpack --config webpack.dev.js",
+      "build": "webpack --config webpack.prod.js"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "author": "WreewanMorhee",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/WreewanMorhee/SmoothScrollMove"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "keywords": [
+      "parallex scroll",
+      "smooth scroll",
+      "page scroll smooth",
+      "web scroll smooth"
+  ],
+  "homepage": "https://github.com/WreewanMorhee/SmoothScrollMove",
+  "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "^7.4.5",
-    "classnames": "^2.2.6",
-    "css-loader": "^3.0.0",
-    "file-loader": "^4.0.0",
     "gsap": "^2.1.3",
-    "node-sass": "^4.12.0",
-    "npm": "^6.9.0",
-    "path": "^0.12.7",
-    "pixi.js": "4.7.3",
-    "rc-slider": "^8.6.9",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
-    "react-slick": "^0.24.0",
-    "react-youtube": "^7.9.0",
-    "recompose": "^0.30.0",
-    "sass": "^1.22.1",
-    "sass-loader": "^7.1.0",
-    "slick-carousel": "^1.8.1",
-    "style-loader": "^0.23.1",
-    "url-loader": "^2.0.0",
-    "use-state-with-callback": "^1.0.18",
-    "webpack-notifier": "^1.7.0",
-    "webpack-xlsx-loader": "^1.0.0",
-    "xlsx": "^0.15.1",
-    "xlsx-parse-json": "^3.0.5"
+    "recompose": "^0.30.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
