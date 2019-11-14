@@ -11,20 +11,20 @@ two way to install:
 yarn add smooth-scroll-move
 ```
 then                 
-```HTML
+```html
 <script src='node_modules/smooth-scroll-move/js_lib/SmoothScrollMove.js'></script>
 ```
 OR
 
 2. download [JSFile](https://raw.githubusercontent.com/WreewanMorhee/SmoothScrollMove/master/js_lib/SmoothScrollMove.js) and
-```HTML
+```html
 <script src='your js path'></script>
 ```
 
 ## How to use:
 
 #### Full Page Scroll Smoothly
-```HTML
+```html
 <body>
   <div style='position: fixed;'>/*I am fixed UI Component, should put outside the smooth-scroll-move*/</div>
   <div id="smooth-scroll-move">
@@ -47,7 +47,7 @@ Here, you will have your web whole page scroll smoothly!!
 
 #### Parallex Scroll Effect                        
 If you want some UI Component have parallex scroll effect, just:
-```HTML
+```html
 <body>
   <header>/*I am fixed UI Component, should put outside the smooth-scroll-move*/</header>
   <div id="smooth-scroll-move">
@@ -67,7 +67,7 @@ If you want some UI Component have parallex scroll effect, just:
 give it a class: smc (scroll move component)              
 AND           
 dataset (can be multi):            
-```HTML     
+```html     
 <div
   class='smc'
   data-smc-x='0.5'                        
@@ -88,9 +88,12 @@ Here, the parallex scroll effect will appear!!
 
 2. if your content will dynamic change cause different content height,                     
 just use the function below to set new height to body after every time content has been changed:
-```JavaScript
+```js
 const set_moving_board_height_to_body = () => {
       const BoxRef = document.getElementById('smooth-scroll-move').children[0]
       document.body.style.height = `${BoxRef.clientHeight}px`
 }
 ```
+
+## Author
+[WreewanMorhee](https://github.com/WreewanMorhee)
