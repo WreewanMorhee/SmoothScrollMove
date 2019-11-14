@@ -4,21 +4,13 @@ Smooth Scroll Move will make your web more smooth to scroll to enhance user expe
 
 
 ## How to install
-two way to install:
-
-1. go to your terminal and type the following:
+go to your terminal and type the following:
 ```bash
 yarn add smooth-scroll-move
 ```
 then                 
 ```html
 <script src='node_modules/smooth-scroll-move/js_lib/SmoothScrollMove.js'></script>
-```
-OR
-
-2. download [JSFile](https://raw.githubusercontent.com/WreewanMorhee/SmoothScrollMove/master/js_lib/SmoothScrollMove.js) and
-```html
-<script src='your js path'></script>
 ```
 
 ## How to use:
