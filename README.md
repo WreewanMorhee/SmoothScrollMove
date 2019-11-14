@@ -12,7 +12,7 @@ yarn add smooth-scroll-move
 ```
 then                 
 ```HTML
-<script src='node_module/SmoothScrollMove/js_lib/SmoothScrollMove.js'></script>
+<script src='node_modules/smooth-scroll-move/js_lib/SmoothScrollMove.js'></script>
 ```
 OR
 
