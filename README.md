@@ -87,5 +87,9 @@ const set_moving_board_height_to_body = () => {
 }
 ```
 
+3. In Mobile Device, the scroll behavior is already smooth, so               
+the effect of Full Page Scroll Smoothly will be closed         
+in condition: window.innerWidth <= 1024
+
 ## Author
 [WreewanMorhee](https://github.com/WreewanMorhee)
